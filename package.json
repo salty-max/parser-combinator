@@ -1,0 +1,29 @@
+{
+  "name": "parser-combinator",
+  "version": "0.1.0",
+  "description": "A parser combinator written in Typescript",
+  "main": "index.ts",
+  "repository": "https://github.com/salty-max/parser-combinator.git",
+  "author": "salty-max <max@jellycat.fr>",
+  "license": "MIT",
+  "scripts": {
+    "start": "yarn build && node dist/index.js",
+    "start:dev": "nodemon",
+    "build": "rimraf ./dist && tsc",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.7",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "eslint": "^8.2.0",
+    "husky": "^7.0.4",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.4.1",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4"
+  }
+}
