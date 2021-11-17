@@ -1,28 +1,73 @@
-import createMemory from "./create-memory";
-import CPU from "./cpu";
-import { ADD_REG_REG, MOV_LIT_R1, MOV_LIT_R2 } from "./instructions";
+// interface ParserState<T> {
+//   target: T;
+//   index: number;
+//   result?: T | Array<T>;
+// }
 
-const memory = createMemory(256);
-const writableBytes = new Uint8Array(memory.buffer);
+// type Parser<T> = (state: ParserState<T>) => ParserState<T>;
 
-const cpu = new CPU(memory);
+const updateParserState = (state: any, index: number, result: any) => ({
+  ...state,
+  index,
+  result
+});
 
-writableBytes[0] = MOV_LIT_R1;
-writableBytes[1] = 0x12; // 0x1234
-writableBytes[2] = 0x34;
+const updateParserResult = (state: any, result: any) => ({
+  ...state,
+  result
+});
 
-writableBytes[3] = MOV_LIT_R2;
-writableBytes[4] = 0xab; // 0xABCD
-writableBytes[5] = 0xcd;
+const updateParserError = (state: any, errorMsg: string) => ({
+  ...state,
+  error: errorMsg,
+  isError: true
+});
 
-writableBytes[6] = ADD_REG_REG;
-writableBytes[7] = 2; // r1 index
-writableBytes[8] = 3; // r2 index
+const str = (s: string) => (parserState: any) => {
+  const { target, index, isError } = parserState;
 
-cpu.debug();
-cpu.step();
-cpu.debug();
-cpu.step();
-cpu.debug();
-cpu.step();
-cpu.debug();
+  if (isError) {
+    return parserState;
+  }
+
+  if (target.slice(index).startsWith(s)) {
+    return updateParserState(parserState, index + s.length, s);
+  }
+
+  return updateParserError(
+    parserState,
+    `Tried to match ${s}, but got ${target.slice(index, index + 10)}`
+  );
+};
+
+const sequenceOf = (parsers: Array<any>) => (parserState: any) => {
+  if (parserState.isError) {
+    return parserState;
+  }
+
+  const results = [];
+  let nextState = parserState;
+
+  for (const p of parsers) {
+    nextState = p(nextState);
+    results.push(nextState.result);
+  }
+
+  return updateParserResult(nextState, results);
+};
+
+const run = (parser: any, target: string) => {
+  const initialState = {
+    target,
+    index: 0,
+    result: null,
+    isError: false,
+    error: null
+  };
+
+  return parser(initialState);
+};
+
+const parser = str("Hello");
+
+console.log(run(parser, "Hello"));
