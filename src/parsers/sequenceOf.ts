@@ -15,5 +15,7 @@ export const sequenceOf = (parsers: Array<Parser<any>>) =>
       results.push(nextState.result);
     }
 
+    if (nextState.isError) return nextState;
+
     return updateParserResult(nextState, results);
   });

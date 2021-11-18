@@ -3,9 +3,11 @@ import { ParserState } from "../types";
 
 export const sepBy =
   (separatorParser: Parser<any>) => (valueParser: Parser<any>) =>
-    new Parser((state: ParserState<any>) => {
+    new Parser((parserState: ParserState<any>) => {
+      if (parserState.isError) return parserState;
+
       const results = [];
-      let nextState = state;
+      let nextState = parserState;
 
       // eslint-disable-next-line no-constant-condition
       while (true) {
@@ -23,8 +25,8 @@ export const sepBy =
 
       if (results.length === 0) {
         return updateParserError(
-          state,
-          `sepBy: Unable to capture any results @ index ${state.index}`
+          parserState,
+          `sepBy: Unable to capture any results @ index ${parserState.index}`
         );
       }
 
