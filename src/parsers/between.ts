@@ -1,4 +1,4 @@
-import { sequenceOf } from "..";
+import { sequenceOf } from "./sequenceOf";
 import { Parser } from "../parser";
 
 export const between =

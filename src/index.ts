@@ -1,44 +1,24 @@
-import { between } from "./parsers/between";
-import { digits } from "./parsers/digits";
-import { letters } from "./parsers/letters";
-import { sequenceOf } from "./parsers/sequenceOf";
-import { str } from "./parsers/str";
+import { compute } from "./micro-language";
 
-export { str } from "./parsers/str";
-export { choice } from "./parsers/choice";
-export { digits } from "./parsers/digits";
-export { letters } from "./parsers/letters";
-export { many, manyOne } from "./parsers/many";
-export { sequenceOf } from "./parsers/sequenceOf";
-export { between } from "./parsers/between";
+export { ParserState, ParserTransformer } from "./types";
+export {
+  Parser,
+  updateParserError,
+  updateParserResult,
+  updateParserState
+} from "./parser";
+export {
+  between,
+  choice,
+  digits,
+  lazy,
+  letters,
+  many,
+  manyOne,
+  sepBy,
+  sequenceOf,
+  str
+} from "./parsers";
 
-const stringParser = letters.map((result) => ({
-  type: "string",
-  value: result
-}));
-
-const numberParser = digits.map((result) => ({
-  type: "number",
-  value: Number(result)
-}));
-
-const dicerollParser = sequenceOf([digits, str("d"), digits]).map(
-  ([n, _, s]) => ({
-    type: "diceroll",
-    value: [Number(n), Number(s)]
-  })
-);
-
-const parser = sequenceOf([letters, str(":")])
-  .map((results) => results[0])
-  .chain((type: string) => {
-    if (type === "string") {
-      return stringParser;
-    } else if (type === "number") {
-      return numberParser;
-    }
-
-    return dicerollParser;
-  });
-
-console.log(parser.run("diceroll:2d10"));
+const program = "(+ (* 10 2) (- (/ 50 3) 2))";
+console.log(compute(program));
