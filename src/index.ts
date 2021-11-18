@@ -1,5 +1,3 @@
-import { compute } from "./micro-language";
-
 export { ParserState, ParserTransformer } from "./types";
 export {
   Parser,
@@ -19,6 +17,3 @@ export {
   sequenceOf,
   str
 } from "./parsers";
-
-const program = "(+ (* 10 2) (- (/ 50 3) 2))";
-console.log(compute(program));

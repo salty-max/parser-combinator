@@ -7,7 +7,7 @@
  * Nested calculations: (+ (* 10 2) (- 10 2))
  */
 
-import { between, choice, digits, lazy, sequenceOf, str } from "./parsers";
+import { between, choice, digits, lazy, sequenceOf, str } from "../parsers";
 
 const betweenBrackets = between(str("("), str(")"));
 
@@ -59,7 +59,7 @@ const evaluate = (node: Node): any => {
   }
 };
 
-export const compute = (program: string) => {
+const compute = (program: string) => {
   const parseResult = expr.run(program);
   if (parseResult.isError) {
     throw new Error("Invalid program");
@@ -67,3 +67,6 @@ export const compute = (program: string) => {
 
   return evaluate(parseResult.result);
 };
+
+const program = "(+ (* 10 2) (- (/ 50 3) 2))";
+console.log(compute(program));

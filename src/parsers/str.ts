@@ -14,7 +14,7 @@ export const str = (s: string) =>
     if (slicedTarget.length === 0) {
       return updateParserError(
         parserState,
-        `str: Tried to match "${s}", but got Unexpected end of input.`
+        `Str: Tried to match "${s}", but got Unexpected end of input.`
       );
     }
 
@@ -24,6 +24,6 @@ export const str = (s: string) =>
 
     return updateParserError(
       parserState,
-      `str: Tried to match ${s}, but got ${target.slice(index, index + 10)}`
+      `Str: Tried to match ${s}, but got ${target.slice(index, index + 10)}`
     );
   });

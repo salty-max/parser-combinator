@@ -1,7 +1,7 @@
 export interface ParserState<T> {
   target: T;
   index: number;
-  result?: T | Array<T>;
+  result?: T;
   isError?: boolean;
   error?: string;
 }

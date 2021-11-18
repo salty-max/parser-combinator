@@ -15,7 +15,7 @@ export const digits = new Parser<string>((parserState: ParserState<string>) => {
   if (slicedTarget.length === 0) {
     return updateParserError(
       parserState,
-      `digits: Got Unexpected end of input.`
+      `Digits: Got Unexpected end of input.`
     );
   }
 
@@ -31,6 +31,6 @@ export const digits = new Parser<string>((parserState: ParserState<string>) => {
 
   return updateParserError(
     parserState,
-    `digits: Couldn't match digits @ index ${index}`
+    `Digits: Couldn't match digits @ index ${index}`
   );
 });

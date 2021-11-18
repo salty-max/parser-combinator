@@ -16,7 +16,7 @@ export const letters = new Parser<string>(
     if (slicedTarget.length === 0) {
       return updateParserError(
         parserState,
-        `letters: Got Unexpected end of input.`
+        `Letters: Got Unexpected end of input.`
       );
     }
 
@@ -32,7 +32,7 @@ export const letters = new Parser<string>(
 
     return updateParserError(
       parserState,
-      `letters: Couldn't match letters @ index ${index}`
+      `Letters: Couldn't match letters @ index ${index}`
     );
   }
 );

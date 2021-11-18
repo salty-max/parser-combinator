@@ -26,7 +26,7 @@ export const sepBy =
       if (results.length === 0) {
         return updateParserError(
           parserState,
-          `sepBy: Unable to capture any results @ index ${parserState.index}`
+          `SepBy: Unable to capture any results @ index ${parserState.index}`
         );
       }
 

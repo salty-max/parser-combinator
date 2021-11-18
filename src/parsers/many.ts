@@ -46,7 +46,7 @@ export const manyOne = (parser: Parser<any>) =>
     if (results.length === 0) {
       return updateParserError(
         parserState,
-        `manyOne: Unable to match any input using parser @ index ${parserState.index}`
+        `ManyOne: Unable to match any input using parser @ index ${parserState.index}`
       );
     }
 

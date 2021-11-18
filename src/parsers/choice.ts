@@ -14,6 +14,6 @@ export const choice = (parsers: Array<Parser<any>>) =>
 
     return updateParserError(
       parserState,
-      `choice: Unable to match with any parser @ index ${parserState.index}`
+      `Choice: Unable to match with any parser @ index ${parserState.index}`
     );
   });

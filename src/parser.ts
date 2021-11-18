@@ -57,7 +57,7 @@ export class Parser<T> {
 export const updateParserState = <T>(
   state: ParserState<T>,
   index: number,
-  result: T
+  result: any
 ): ParserState<T> => ({
   ...state,
   index,
@@ -66,7 +66,7 @@ export const updateParserState = <T>(
 
 export const updateParserResult = <T>(
   state: ParserState<T>,
-  result: T
+  result: any
 ): ParserState<T> => ({
   ...state,
   result

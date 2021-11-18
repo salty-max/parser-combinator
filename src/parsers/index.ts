@@ -1,4 +1,5 @@
 export { between } from "./between";
+export { bit, one, zero } from "./bit";
 export { choice } from "./choice";
 export { digits } from "./digits";
 export { lazy } from "./lazy";
